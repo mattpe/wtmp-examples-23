@@ -25,4 +25,21 @@ const powerIterative = (base, exponent) => {
   return result;
 };
 
-console.log(powerIterative(2, 2));
+console.log(powerIterative(2, 4));
+
+// objects
+
+const student = {
+  name: 'Jill',
+  credits: 90,
+  active: true
+};
+student.lastname = 'Jones';
+student.credits++;
+console.log('credits', student.credits);
+console.log('credits', student['credits']);
+
+// iterating objects using for-in loop
+for (const property in student) {
+  console.log('avain:', property, 'arvo: ', student[property]);
+}
