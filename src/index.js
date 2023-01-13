@@ -1,5 +1,8 @@
 // Author: mattpe
 // date: 13.1.2023
+import Menu from './menu.json';
+console.log('menu from json', Menu);
+
 
 const coursesEn = ["Hamburger, cream sauce and poiled potates",
                 "Goan style fish curry and whole grain rice",
