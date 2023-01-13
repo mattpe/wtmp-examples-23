@@ -17,6 +17,12 @@ let b = 3;
 }
 console.log(a + b); // --> 8
 
+/**
+ * Power calculation
+ * @param {number} base - base value
+ * @param {number} exponent - exponent value
+ * @returns result of the calculation
+ */
 const powerIterative = (base, exponent) => {
   let result = 1;
   for(expo = 1; expo <= exponent; expo++) {
