@@ -1,21 +1,14 @@
-// Author: mattpe
-// date: 13.1.2023
+/**
+ * @author: mattpe
+ * @summary: Example solution for:
+ * https://github.com/mattpe/wtmp/blob/master/docs/01-javascript-basics.md#task-4---dummy-lunch-menu-2
+*/
 import Menu from './menu.json';
-console.log('menu from json', Menu);
+// console.log('menu from json', Menu);
 
-
-const coursesEn = ["Hamburger, cream sauce and poiled potates",
-                "Goan style fish curry and whole grain rice",
-                "Vegan Chili sin carne and whole grain rice",
-                "Broccoli puree soup, side salad with two napas",
-                "Lunch baguette with BBQ-turkey filling",
-                "Cheese / Chicken / Vege / Halloum burger and french fries"];
-const coursesFi = ["Jauhelihapihvi, ruskeaa kermakastiketta ja keitettyä perunaa",
-                "Goalaista kalacurrya ja täysjyväriisiä",
-                "vegaani Chili sin carne ja täysjyväriisi",
-                "Parsakeittoa,lisäkesalaatti kahdella napaksella",
-                "Lunch baguette with BBQ-turkey filling",
-                "Juusto / Kana / Kasvis / Halloumi burgeri ja ranskalaiset"];
+// Convert Menu.courses object to array and extract title_* values only
+const coursesEn = Object.values(Menu.courses).map(course => course.title_en);
+const coursesFi = Object.values(Menu.courses).map(course => course.title_fi);
 
 let lang = 'fi';
 let activeMenu = coursesFi;
