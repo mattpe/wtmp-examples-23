@@ -1,6 +1,8 @@
 /**
- * @author: mattpe
- * @summary: Example solution for:
+ * Main JS file
+ *
+ * @author: mattpe <mattpe@metropolia.fi>
+ * @summary: Example solution for
  * https://github.com/mattpe/wtmp/blob/master/docs/01-javascript-basics.md#task-4---dummy-lunch-menu-2
 */
 import Menu from './menu.json';
@@ -38,6 +40,9 @@ renderMenu(activeMenu);
  * @returns sorted menu array
  */
 const sortMenu = (menu, order='asc') => {
+  // create a copy of the menu for sorting
+  // don't change the original arrays's order
+  menu = [...menu];
   menu.sort();
   if (order === 'desc') {
     menu.reverse();
@@ -69,10 +74,22 @@ const getRandomDish = (menu) => {
   return menu[randomIndex];
 };
 
+/**
+ * Buttons & event handlers
+ */
 const sortButton = document.querySelector('#sort-button');
 sortButton.addEventListener('click', () => {
   renderMenu(sortMenu(activeMenu));
 });
-
-// TODO: Add a button for changing the language of the menu
-// TODO: Add a button that picks a random dish from the array and displays it
+const langButton = document.querySelector('#lang-button');
+langButton.addEventListener('click', () => {
+  if (lang === 'fi') {
+    changeLanguage('en');
+  } else {
+    changeLanguage('fi');
+  }
+});
+const randButton = document.querySelector('#rand-button');
+randButton.addEventListener('click', () => {
+  alert(getRandomDish(activeMenu));
+});
