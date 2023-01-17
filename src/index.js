@@ -4,13 +4,13 @@
  * @author: mattpe <mattpe@metropolia.fi>
  * @summary: Example solution for
  * https://github.com/mattpe/wtmp/blob/master/docs/01-javascript-basics.md#task-4---dummy-lunch-menu-2
-*/
+ */
 import Menu from './menu.json';
 // console.log('menu from json', Menu);
 
 // Convert Menu.courses object to array and extract title_* values only
-const coursesEn = Object.values(Menu.courses).map(course => course.title_en);
-const coursesFi = Object.values(Menu.courses).map(course => course.title_fi);
+const coursesEn = Object.values(Menu.courses).map((course) => course.title_en);
+const coursesFi = Object.values(Menu.courses).map((course) => course.title_fi);
 
 let lang = 'fi';
 let activeMenu = coursesFi;
@@ -39,7 +39,7 @@ renderMenu(activeMenu);
  * @param {string} order - 'asc' or 'desc'
  * @returns sorted menu array
  */
-const sortMenu = (menu, order='asc') => {
+const sortMenu = (menu, order = 'asc') => {
   // create a copy of the menu for sorting
   // don't change the original arrays's order
   menu = [...menu];
