@@ -6,7 +6,15 @@
       "jsx": true
     }
   },
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "extends": "eslint:recommended",
   "rules": {
-    "semi": "error"
+    "semi": "error",
+    "quotes": ["warn", "single"],
+    "no-multiple-empty-lines": "warn",
+    "eol-last": ["warn", "always"]
   }
 }

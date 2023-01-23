@@ -1,5 +1,8 @@
-// Author: mattpe
-// date:
+/**
+ *
+ * @author: mattpe <mattpe@metropolia.fi>
+ * @summary: Random examples
+ */
 
-console.log('this is my first webpack app');
+console.log('this is my example webpack app');
 
