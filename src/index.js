@@ -33,12 +33,12 @@ const renderMenu = (menu, targetElem) => {
  * Change UI language
  * @param {string} language
  */
-const changeLanguage = (language) => {
+const changeLanguage = async (language) => {
+  activeMenus[0] = await Sodexo.getDailyMenu(language);
+  // TODO: add network/real data to Fazer module
   if (language === 'fi') {
-    activeMenus[0] = Sodexo.coursesFi;
     activeMenus[1] = Fazer.coursesFi;
   } else if (language === 'en') {
-    activeMenus[0] = Sodexo.coursesEn;
     activeMenus[1] = Fazer.coursesEn;
   }
   lang = language;
@@ -63,8 +63,8 @@ langButton.addEventListener('click', () => {
 /**
  * App initalization
  */
-const init = () => {
-  activeMenus = [Sodexo.coursesFi, Fazer.coursesFi];
+const init = async () => {
+  activeMenus = [await Sodexo.getDailyMenu('en'), Fazer.coursesEn];
   menuContainers = document.querySelectorAll('.menu-container');
   for (const [index, menu] of activeMenus.entries()) {
     renderMenu(menu, menuContainers[index]);
