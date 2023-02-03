@@ -35,12 +35,7 @@ const renderMenu = (menu, targetElem) => {
  */
 const changeLanguage = async (language) => {
   activeMenus[0] = await Sodexo.getDailyMenu(language);
-  // TODO: add network/real data to Fazer module
-  if (language === 'fi') {
-    activeMenus[1] = Fazer.coursesFi;
-  } else if (language === 'en') {
-    activeMenus[1] = Fazer.coursesEn;
-  }
+  activeMenus[1] = await Fazer.getDailyMenu(language);
   lang = language;
   // TODO: implement & use generic renderAll() function??
   for (const [index, menu] of activeMenus.entries()) {
@@ -64,7 +59,7 @@ langButton.addEventListener('click', () => {
  * App initalization
  */
 const init = async () => {
-  activeMenus = [await Sodexo.getDailyMenu('en'), Fazer.coursesEn];
+  activeMenus = [await Sodexo.getDailyMenu(lang), await Fazer.getDailyMenu(lang)];
   menuContainers = document.querySelectorAll('.menu-container');
   for (const [index, menu] of activeMenus.entries()) {
     renderMenu(menu, menuContainers[index]);

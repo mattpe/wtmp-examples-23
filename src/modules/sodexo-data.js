@@ -34,7 +34,7 @@ const getDailyMenu = async (lang) => {
     const coursesFi = Object.values(menu.courses).map((course) => course.title_fi);
     return lang === 'en' ? coursesEn : coursesFi;
   } catch (error) {
-    throw new Error('getDailyMenu error' + error);
+    throw new Error('getDailyMenu error: ' + error);
   }
 };
 
