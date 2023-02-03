@@ -1,7 +1,13 @@
 body {
-  margin: 10%;
+  margin: 0;
 }
+section#menu-wrapper {
+  display: flex;
+}
+
 div {
   border: 2px dashed black;
+  width: 300px;
+  border-radius: 3%;
   margin: 3px;
 }

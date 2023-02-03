@@ -29,25 +29,6 @@ const renderMenu = (menu, targetElem) => {
   menuContainer.append(list);
 };
 
-
-/**
- * Sorts menu alphapetically
- * @param {Array} menu - Array of dishes
- * @param {string} order - 'asc' or 'desc'
- * @returns sorted menu array
- */
-// TODO: fix for multiple menus
-const sortMenu = (menu, order = 'asc') => {
-  // create a copy of the menu for sorting
-  // don't change the original arrays's order
-  menu = [...menu];
-  menu.sort();
-  if (order === 'desc') {
-    menu.reverse();
-  }
-  return menu;
-};
-
 /**
  * Change UI language
  * @param {string} language
@@ -68,22 +49,8 @@ const changeLanguage = (language) => {
 };
 
 /**
- * Get a random dish fron an array
- * @param {Array} menu - Array of dishes
- * @returns random dish item
- */
-const getRandomDish = (menu) => {
-  const randomIndex = Math.floor(Math.random() * menu.length);
-  return menu[randomIndex];
-};
-
-/**
  * Buttons & event handlers
  */
-const sortButton = document.querySelector('#sort-button');
-sortButton.addEventListener('click', () => {
-  renderMenu(sortMenu(activeMenus[0]));
-});
 const langButton = document.querySelector('#lang-button');
 langButton.addEventListener('click', () => {
   if (lang === 'fi') {
@@ -91,10 +58,6 @@ langButton.addEventListener('click', () => {
   } else {
     changeLanguage('fi');
   }
-});
-const randButton = document.querySelector('#rand-button');
-randButton.addEventListener('click', () => {
-  alert(getRandomDish(activeMenus[0]));
 });
 
 /**
