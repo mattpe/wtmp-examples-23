@@ -10,16 +10,41 @@ import Fazer from './modules/fazer-data';
 
 // Global variables
 let lang = 'fi';
-let menuContainers = [];
-let activeMenus = [];
+const restaurants = [
+  {name: 'Myrtsi', id: 152, type: 'sodexo'},
+  {name: 'Karaportti', id: 3208, type: 'fazer'},
+  {name: 'Myllypuro', id: 158, type: 'sodexo'},
+];
+
+/**
+ * Stores user setting to local storage
+ */
+// eslint-disable-next-line no-unused-vars
+const saveSettings = () => {
+  const settings = {};
+  settings.restaurants = restaurants;
+  settings.darkmode = true;
+  localStorage.setItem('settings', JSON.stringify(settings));
+  // TODO: implement button for saving usersettings
+  // TODO: implement ui functionality for adding restaurants
+};
+
+/**
+ * Reads user setting from local storage
+ */
+const loadSettings = () => {
+  // TODO: load settings (e.g. restaurants array) from localstorage
+};
 
 /**
  * Renders menu content to html page
  * @param {Array} menu - array of dishes
+ * @param {Object} targetElem - target DOM element
  */
 const renderMenu = (menu, targetElem) => {
-  const menuContainer = targetElem;
-  menuContainer.innerHTML = '';
+  const menuContainer = document.createElement('div');
+  menuContainer.classList = 'menu-container';
+  targetElem.append(menuContainer);
   const list = document.createElement('ul');
   for (const dish of menu) {
     const li = document.createElement('li');
@@ -30,17 +55,29 @@ const renderMenu = (menu, targetElem) => {
 };
 
 /**
+ * Iterates through restaurants array and render data to page
+ */
+const renderAllMenus = async () => {
+  const menuWrapper = document.querySelector('#menu-wrapper');
+  menuWrapper.innerHTML = '';
+  for (const restaurant of restaurants) {
+    let menu;
+    if (restaurant.type === 'sodexo') {
+      menu = await Sodexo.getDailyMenu(restaurant.id, lang);
+    } else if (restaurant.type === 'fazer') {
+      menu = await Fazer.getDailyMenu(restaurant.id, lang);
+    }
+    renderMenu(menu, menuWrapper);
+  }
+};
+
+/**
  * Change UI language
  * @param {string} language
  */
 const changeLanguage = async (language) => {
-  activeMenus[0] = await Sodexo.getDailyMenu(language);
-  activeMenus[1] = await Fazer.getDailyMenu(language);
   lang = language;
-  // TODO: implement & use generic renderAll() function??
-  for (const [index, menu] of activeMenus.entries()) {
-    renderMenu(menu, menuContainers[index]);
-  }
+  renderAllMenus();
 };
 
 /**
@@ -58,12 +95,9 @@ langButton.addEventListener('click', () => {
 /**
  * App initalization
  */
-const init = async () => {
-  activeMenus = [await Sodexo.getDailyMenu(lang), await Fazer.getDailyMenu(lang)];
-  menuContainers = document.querySelectorAll('.menu-container');
-  for (const [index, menu] of activeMenus.entries()) {
-    renderMenu(menu, menuContainers[index]);
-  }
+const init = () => {
+  loadSettings();
+  renderAllMenus();
 };
 init();
 

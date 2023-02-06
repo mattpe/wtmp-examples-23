@@ -14,7 +14,7 @@ import {doFetch, getWeekdayIndex} from './network';
 // const today = new Date().toISOString().split('T')[0];
 // const dailyUrl = 'https://www.sodexo.fi/ruokalistat/output/daily_json/152/' + today;
 
-const weeklyUrl = 'https://www.sodexo.fi/ruokalistat/output/weekly_json/152';
+const weeklyUrl = 'https://www.sodexo.fi/ruokalistat/output/weekly_json/';
 
 /**
  * Gets daily menu from Sodexo API
@@ -22,12 +22,12 @@ const weeklyUrl = 'https://www.sodexo.fi/ruokalistat/output/weekly_json/152';
  * @param {string} lang - menu language 'fi'/'en'
  * @returns Menu array
  */
-const getDailyMenu = async (lang) => {
+const getDailyMenu = async (restaurantId, lang) => {
   try {
     // using dailyUrl:
     // const menu = await doFetch(dailyUrl);
     // using weeklyUrl:
-    const weeklyMenu = await doFetch(weeklyUrl);
+    const weeklyMenu = await doFetch(weeklyUrl + restaurantId);
     const menu = weeklyMenu.mealdates[getWeekdayIndex()];
     //console.log('sodexo menu', menu);
     const coursesEn = Object.values(menu.courses).map((course) => course.title_en);
