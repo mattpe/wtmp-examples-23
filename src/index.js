@@ -7,6 +7,7 @@
  */
 import Sodexo from './modules/sodexo-data';
 import Fazer from './modules/fazer-data';
+import HSL from './modules/hsl';
 
 // Global variables
 let lang = 'fi';
@@ -41,10 +42,13 @@ const loadSettings = () => {
  * @param {Array} menu - array of dishes
  * @param {Object} targetElem - target DOM element
  */
-const renderMenu = (menu, targetElem) => {
+const renderMenu = (menu, title, targetElem) => {
   const menuContainer = document.createElement('div');
   menuContainer.classList = 'menu-container';
   targetElem.append(menuContainer);
+  const h3 = document.createElement('h3');
+  h3.textContent = title;
+  menuContainer.append(h3);
   const list = document.createElement('ul');
   for (const dish of menu) {
     const li = document.createElement('li');
@@ -67,7 +71,7 @@ const renderAllMenus = async () => {
     } else if (restaurant.type === 'fazer') {
       menu = await Fazer.getDailyMenu(restaurant.id, lang);
     }
-    renderMenu(menu, menuWrapper);
+    renderMenu(menu, restaurant.name, menuWrapper);
   }
 };
 
@@ -92,12 +96,49 @@ langButton.addEventListener('click', () => {
   }
 });
 
+const renderHSLData = async () => {
+  // Karanristi to Leppävaara
+  const routes = await HSL.getRoutesByStopId(2132208);
+  console.log('routes', routes);
+  const target = document.querySelector('#hsl-wrapper');
+  const ul = document.createElement('ul');
+  for (const route of routes) {
+    const li = document.createElement('li');
+    li.textContent = `${route.name} saapuu ${route.realtimeArrival}`;
+    ul.append(li);
+  }
+  target.append(ul);
+};
+
+/**
+ * Rotate visibility of <section>s
+ * @param {number} activeScreenIndex
+ * @param {number} delay - in seconds
+ */
+const screenCarousel = (activeScreenIndex, delay) => {
+  const screens = document.querySelectorAll('section');
+  console.log(screens);
+  for (const screen of screens) {
+    screen.style.display = 'none';
+  }
+  screens[activeScreenIndex].style.display = 'flex';
+  setTimeout(() => {
+    let nextScreen = activeScreenIndex + 1;
+    if (activeScreenIndex == screens.length-1) {
+      nextScreen = 0;
+    }
+    screenCarousel(nextScreen, delay);
+  }, delay * 1000);
+};
+
 /**
  * App initalization
  */
 const init = () => {
   loadSettings();
   renderAllMenus();
+  renderHSLData();
+  screenCarousel(0, 3);
 };
 init();
 

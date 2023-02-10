@@ -1,8 +1,9 @@
 body {
   margin: 0;
 }
-section#menu-wrapper {
+section {
   display: flex;
+  flex-wrap: wrap;
 }
 div {
   border: 2px dashed black;
