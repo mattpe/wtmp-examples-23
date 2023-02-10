@@ -35,7 +35,7 @@ const getQueryForNextRidesByStopId = (id) => {
 /**
  * Converts HSL time to readable string format
  * @param {nunber} seconds
- * @returns
+ * @returns time in string format
  */
 const convertTime = (seconds) => {
   const hours = Math.floor(seconds / 3600);
